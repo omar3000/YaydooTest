@@ -4,7 +4,7 @@ const db = require('../models');
 
 const usuarios = db.usuarios;
 
-const  config = require("../config/key.config");
+const  config = require("../../config/key.config");
 
 
 

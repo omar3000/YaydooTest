@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const indexRouter = require('./controllers/index');
-
+const indexRouter = require('./src/controllers/index');
+const { ValidationError } = require('express-validation')
 
 const app = express();
 global.__basedir = __dirname;
@@ -41,7 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
-require("./controllers/login.route.js")(app);
+require("./src/routes/login.route.js")(app);
 
 app.use('/', indexRouter);
 
@@ -51,7 +51,13 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
+app.use(function(err, req, res, next) {
+  if (err instanceof ValidationError) {
+    return res.status(err.statusCode).json(err)
+  }
 
+  return res.status(500).json(err)
+})
 
 // error handler
 app.use(function (err, req, res, next) {
