@@ -1,10 +1,11 @@
 
 const jwt = require('jsonwebtoken');
 
-const  config = require("../config/key.config");
+const  config = require("../../config/key.config");
 
 // middleware to validate token (rutas protegidas)
 const verifyToken = (req, res, next) => {
+
     const token = req.header('authorization')
     if (!token) return res.status(401).json({ error: 'Acceso denegado' })
     try {
