@@ -15,5 +15,12 @@ const createClienteValidation = {
     }),
   }
 
+  const deleteClienteValidation = {
+    params: Joi.object({
+      id_cliente: Joi.number()
+        .required(),
+    }),
+  }
 
-module.exports =  createClienteValidation;
+
+module.exports =  {createClienteValidation, deleteClienteValidation } ;
