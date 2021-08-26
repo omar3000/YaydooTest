@@ -2,6 +2,7 @@
 const db = require('../models');
 
 const cliente = db.clientes;
+const cuenta = db.cuentas;
 
 
 
@@ -20,7 +21,19 @@ module.exports  =  {
               })
               .then(cliente => res.status(200).send({status: 200, cliente: cliente}))
               .catch(error => res.status(400).send({status: 401, message: error}))
-    }
+    },
+
+    list(req, res) {
+        
+        return cliente.findAll({
+              include: [{
+                   model: cuenta,
+                   as: 'cuenta'
+              }]
+        })
+        .then(cliente => res.status(200).send(cliente))
+        .catch(error => res.status(400).send( {status: 401, message: error}))
+     },
 
 
 };

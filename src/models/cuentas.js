@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('cuentas', {
+  const cuenta = sequelize.define('cuentas', {
     id: {
       autoIncrement: true,
       autoIncrementIdentity: true,
@@ -43,4 +43,13 @@ module.exports = function(sequelize, DataTypes) {
       },
     ]
   });
+
+  cuenta.associate = function(models) {
+    cuenta.belongsTo(models.clientes, { as: "id_cliente_cliente", foreignKey: "id_cliente"});
+  };
+
+  return cuenta;
+  
+
+  
 };
