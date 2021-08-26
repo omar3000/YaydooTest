@@ -25,6 +25,7 @@ db.sequelize = sequelize;
 
 db.usuarios = require("./usuarios")(sequelize, Sequelize);
 db.clientes = require("./clientes")(sequelize, Sequelize);
+db.cuentas = require("./cuentas")(sequelize, Sequelize);
 
 
 
