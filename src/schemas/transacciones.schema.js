@@ -17,6 +17,10 @@ const createTransaccionValidation = {
     params: Joi.object({
       id_cliente: Joi.number()
         .required(),
+      fecha_inicial: Joi.date()
+        .required(),
+      fecha_final: Joi.date()
+        .required(),
     }),
   }
 

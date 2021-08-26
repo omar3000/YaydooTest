@@ -51,11 +51,19 @@ module.exports  =  {
                         include: [
                             {
                                 model: transaccion,
-                                as: 'transacciones'
+                                as: 'transacciones',
+                                fecha_registro: {
+                                    [Op.gte]: req.params.fecha_inicial,
+                                    [Op.lte]: req.params.fecha_final,
+                              }
                             },
                             {
                                 model: transaccion,
-                                as: 'id_cuenta_receptor_transacciones'
+                                as: 'id_cuenta_receptor_transacciones',
+                                fecha_registro: {
+                                    [Op.gte]: req.params.fecha_inicial,
+                                    [Op.lte]: req.params.fecha_final,
+                              }
                             }
                             
                         ],
@@ -68,6 +76,7 @@ module.exports  =  {
                 where: { 
                     activo: true,
                     id: req.params.id_cliente
+
                 }
             })
             .then(transaccion => res.status(200).send(transaccion))

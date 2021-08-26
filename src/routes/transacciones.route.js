@@ -10,7 +10,7 @@ module.exports = app => {
 
   router.post('/transacciones/create', validate(transaccionesValidation.createTransaccionValidation), verifyToken,  transacciones.create);
 
-  router.get('/transacciones/list/:id_cliente',validate(transaccionesValidation.listTransaccionValidation),verifyToken, transacciones.list);
+  router.get('/transacciones/list/:id_cliente/:fecha_inicial/:facha_final',validate(transaccionesValidation.listTransaccionValidation),verifyToken, transacciones.list);
 
 
   app.use('/api', router);
