@@ -10,7 +10,7 @@ module.exports = app => {
 
   router.post('/clientes/create', validate(clientesValidation.createClienteValidation), verifyToken,  clientes.create);
 
-  router.put('/clientes/eliminar/:id_cliente', validate(clientesValidation.deleteClienteValidation), verifyToken,  clientes.eliminadoLogico);
+  router.put('/clientes/delete/:id_cliente', validate(clientesValidation.deleteClienteValidation), verifyToken,  clientes.logicDelete);
 
   router.get('/clientes/list/:fecha_inicial/:fecha_final', validate(clientesValidation.listClienteValidation), verifyToken, clientes.list);
 

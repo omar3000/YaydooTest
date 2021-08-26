@@ -41,7 +41,7 @@ module.exports  =  {
             .catch(error => res.status(400).send( {status: 401, message: error}))
      },
 
-      async eliminadoLogico(req, res) { 
+      async logicDelete(req, res) { 
             const transaction = await db.sequelize.transaction();
             try{
 

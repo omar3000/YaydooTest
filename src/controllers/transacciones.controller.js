@@ -22,16 +22,57 @@ module.exports  =  {
             }
         });
 
+
         if(cuenta_saldo != undefined){
-            return transaccion
-            .create ({
-                id_cuenta_emisor: req.body.id_cuenta_emisor,
-                id_cuenta_receptor: req.body.id_cuenta_receptor,
-                cantidad: req.body.cantidad,
-                fecha_registro:  Date.now()
-            })
-            .then(transaccion => res.status(200).send({status: 200, transaccion: transaccion}))
-            .catch(error => res.status(400).send({status: 401, message: error}))
+
+            const transaction = await db.sequelize.transaction();
+            try{
+
+                var saldo_receptor = await cuenta.findOne({ 
+                    attributes: ['saldo'],
+                    where: {
+                        id: req.body.id_cuenta_receptor,
+                        activo: true
+                    }
+                }, {transaction: transaction});
+        
+
+                await transaccion.create ({
+                    id_cuenta_emisor: req.body.id_cuenta_emisor,
+                    id_cuenta_receptor: req.body.id_cuenta_receptor,
+                    cantidad: req.body.cantidad,
+                    fecha_registro:  Date.now()
+                }, {transaction: transaction});
+
+                console.log( cuenta_saldo.dataValues.saldo);
+
+
+                await cuenta.update({ saldo: cuenta_saldo.dataValues.saldo - req.body.cantidad },
+                    {where: {
+                          id: req.body.id_cuenta_emisor
+                    }
+                }, {transaction: transaction});
+
+                await cuenta.update({ saldo: saldo_receptor.dataValues.saldo + req.body.cantidad},
+                    {where: {
+                      id: req.body.id_cuenta_receptor
+                    }
+                }, {transaction: transaction});
+                
+            
+                await transaction.commit();
+
+                return res.status(200).send({status: 200, message : "Transaccion realizada exitosamente"});
+
+
+            }
+            catch (error) {
+                await transaction.rollback();
+
+                return res.status(400).send( {status: 400, message: error})
+          }
+
+
 
         }
         else{
