@@ -8,7 +8,9 @@ const  verifyToken = require("../middlewares/auth");
 module.exports = app => {
 
 
-  router.post('/clientes/create', validate(clientesValidation), verifyToken,  clientes.create);
+  router.post('/clientes/create', validate(clientesValidation.createClienteValidation), verifyToken,  clientes.create);
+
+  router.put('/clientes/eliminar/:id_cliente', validate(clientesValidation.deleteClienteValidation), verifyToken,  clientes.eliminadoLogico);
 
   router.get('/clientes/list',verifyToken, clientes.list);
 
