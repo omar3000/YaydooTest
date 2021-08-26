@@ -42,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
 require("./src/routes/login.route.js")(app);
+require("./src/routes/clientes.route.js")(app);
 
 app.use('/', indexRouter);
 
