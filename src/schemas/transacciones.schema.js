@@ -4,15 +4,21 @@ const { Joi } = require('express-validation')
 
 const createTransaccionValidation = {
     body: Joi.object({
-      nombre: Joi.string()
+      id_cuenta_emisor: Joi.number()
         .required(),
-      apellido_paterno: Joi.string()
+      id_cuenta_receptor: Joi.number()
         .required(),
-      domicilio: Joi.string()
+      cantidad: Joi.number()
         .required(),
+    }),
+  }
 
+  const listTransaccionValidation = {
+    params: Joi.object({
+      id_cliente: Joi.number()
+        .required(),
     }),
   }
 
 
-module.exports =  createTransaccionValidation;
+module.exports = { createTransaccionValidation, listTransaccionValidation};

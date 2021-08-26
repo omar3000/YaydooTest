@@ -15,6 +15,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
+    },
+    activo: {
+      type: DataTypes.TINYINT,
+      allowNull: true,
+      defaultValue: 1
     }
   }, {
     sequelize,

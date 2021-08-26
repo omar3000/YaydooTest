@@ -27,6 +27,11 @@ module.exports = function(sequelize, DataTypes) {
     fecha_registro: {
       type: DataTypes.DATEONLY,
       allowNull: false
+    },
+    activo: {
+      type: DataTypes.TINYINT,
+      allowNull: true,
+      defaultValue: 1
     }
   }, {
     sequelize,
