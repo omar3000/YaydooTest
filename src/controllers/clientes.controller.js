@@ -29,9 +29,12 @@ module.exports  =  {
               include: [{
                    model: cuenta,
                    as: 'cuenta'
-              }]
+              }],
+              where: {
+                    activo: true
+              }
         })
-        .then(cliente => res.status(200).send(cliente))
+        .then(cliente => res.status(200).send({status: 200, cliente: cliente}))
         .catch(error => res.status(400).send( {status: 401, message: error}))
      },
 

@@ -27,6 +27,11 @@ module.exports = function(sequelize, DataTypes) {
     fecha_registro: {
       type: DataTypes.DATEONLY,
       allowNull: false
+    },
+    activo: {
+      type: DataTypes.TINYINT,
+      allowNull: true,
+      defaultValue: 1
     }
   }, {
     sequelize,
@@ -46,6 +51,8 @@ module.exports = function(sequelize, DataTypes) {
 
   cuenta.associate = function(models) {
     cuenta.belongsTo(models.clientes, { as: "id_cliente_cliente", foreignKey: "id_cliente"});
+    cuenta.hasMany(models.transacciones, { as: "transacciones", foreignKey: "id_cuenta_emisor"});
+    cuenta.hasMany(models.transacciones, { as: "id_cuenta_receptor_transacciones", foreignKey: "id_cuenta_receptor"});
   };
 
   return cuenta;

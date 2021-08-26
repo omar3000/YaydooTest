@@ -1,8 +1,11 @@
 const Sequelize = require('sequelize');
+const { transacciones } = require('.');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('transacciones', {
+  const transaccion = sequelize.define('transacciones', {
     id: {
       type: DataTypes.INTEGER,
+      autoIncrement: true,
+      autoIncrementIdentity: true,
       allowNull: false,
       primaryKey: true
     },
@@ -29,6 +32,11 @@ module.exports = function(sequelize, DataTypes) {
     fecha_registro: {
       type: DataTypes.DATEONLY,
       allowNull: false
+    },
+    activo: {
+      type: DataTypes.TINYINT,
+      allowNull: true,
+      defaultValue: 1
     }
   }, {
     sequelize,
@@ -45,4 +53,13 @@ module.exports = function(sequelize, DataTypes) {
       },
     ]
   });
+
+  transaccion.associate = function(models) {
+    transaccion.belongsTo(models.cuentas, { as: "id_cuenta_emisor_cuenta", foreignKey: "id_cuenta_emisor"});
+    transaccion.belongsTo(models.cuentas, { as: "id_cuenta_receptor_cuenta", foreignKey: "id_cuenta_receptor"});
+
+  };
+
+  return transaccion;
+
 };

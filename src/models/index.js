@@ -20,12 +20,10 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 
-
-// region:: REGISTRO
-
 db.usuarios = require("./usuarios")(sequelize, Sequelize);
 db.clientes = require("./clientes")(sequelize, Sequelize);
 db.cuentas = require("./cuentas")(sequelize, Sequelize);
+db.transacciones = require("./transacciones")(sequelize, Sequelize);
 
 
 Object.keys(db).forEach(key => {
