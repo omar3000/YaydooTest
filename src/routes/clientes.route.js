@@ -10,6 +10,7 @@ module.exports = app => {
 
   router.post('/clientes/create', validate(clientesValidation), verifyToken,  clientes.create);
 
+  router.get('/clientes/list',verifyToken, clientes.list);
 
 
   app.use('/api', router);

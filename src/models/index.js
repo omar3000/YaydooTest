@@ -28,7 +28,11 @@ db.clientes = require("./clientes")(sequelize, Sequelize);
 db.cuentas = require("./cuentas")(sequelize, Sequelize);
 
 
-
+Object.keys(db).forEach(key => {
+  if ('associate' in db[key]) {
+    db[key].associate(db);
+  }
+});
 
 
 
