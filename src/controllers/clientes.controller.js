@@ -4,7 +4,7 @@ const db = require('../models');
 const cliente = db.clientes;
 const cuenta = db.cuentas;
 
-
+const { Op } = require("sequelize");
 
 
 module.exports  =  {
@@ -22,13 +22,19 @@ module.exports  =  {
       },
 
       list(req, res) {
+
             return cliente.findAll({
                   include: [{
                         model: cuenta,
                         as: 'cuenta'
                   }],
                   where: {
-                        activo: true
+                        activo: true,
+                        fecha_registro: {
+                              [Op.gte]: req.params.fecha_inicial,
+                              [Op.lte]: req.params.fecha_final,
+                        }
+
                   }
             })
             .then(cliente => res.status(200).send({status: 200, cliente: cliente}))

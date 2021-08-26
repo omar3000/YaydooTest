@@ -22,5 +22,17 @@ const createClienteValidation = {
     }),
   }
 
+    
+  const listClienteValidation = {
+    params: Joi.object({
+      fecha_inicial: Joi.date()
+        .required(),
+      fecha_final: Joi.date()
+        .required(),
+    }),
+  }
 
-module.exports =  {createClienteValidation, deleteClienteValidation } ;
+  
+
+
+module.exports =  {createClienteValidation, deleteClienteValidation, listClienteValidation } ;
